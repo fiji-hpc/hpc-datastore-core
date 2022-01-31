@@ -1,0 +1,197 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cz.it4i.fiji</groupId>
+    <artifactId>hpc-datastore-core</artifactId>
+
+    <version>0.0.1-SNAPSHOT</version>
+    <name>HPCDataStore Core</name>
+    <description>Core datastructures for HPCDataStore</description>
+    <url>ToDO</url>
+    <inceptionYear>2021</inceptionYear>
+    <organization>
+        <name>SciJava</name>
+        <url>https://scijava.org/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Simplified BSD License</name>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kozusznikj</id>
+            <name>Jan Kožusznik</name>
+            <url>https://www.kozusznik.cz</url>
+            <roles>
+                <role>founder</role>
+                <role>lead</role>
+                <role>developer</role>
+                <role>debugger</role>
+                <role>reviewer</role>
+                <role>support</role>
+                <role>maintainer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <!-- NB: Need at least one element to override the parent. See: https://issues.apache.org/jira/browse/MNG-5220 -->
+        <contributor>
+            <name>None</name>
+        </contributor>
+    </contributors>
+    <mailingLists>
+        <mailingList>
+            <name>none</name>
+        </mailingList>
+    </mailingLists>
+    <scm>
+        <url>https://github.com/fiji-hpc/hpc-datastore-core.git</url>
+    </scm>
+    <issueManagement>
+        <system>none</system>
+    </issueManagement>
+    <ciManagement>
+        <system>none</system>
+    </ciManagement>
+    <properties>
+        <package-name>HPCDataStore-core</package-name>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>8</java.version>
+        <license.licenseName>bsd_2</license.licenseName>
+        <license.copyrightOwners>SciJava developers.</license.copyrightOwners>
+
+        <!-- NB: Deploy releases to the SciJava Maven repository. -->
+        <releaseProfiles>deploy-to-scijava</releaseProfiles>
+        <cdi-api.version>2.0.SP1</cdi-api.version>
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.version>1.13.7.Final</quarkus.platform.version>
+        <quarkus-plugin.version>1.13.7.Final</quarkus-plugin.version>
+        <persistence-api.version>3.0.0</persistence-api.version>
+        <hibernate.version>5.4.25.Final</hibernate.version>
+        <derby.version>10.14.2.0</derby.version>
+        <deltaspike.version>1.9.4</deltaspike.version>
+        <stage>production</stage>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.testSource>${java.version}</maven.compiler.testSource>
+        <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>it4i</id>
+            <url>https://artifactory.cs.vsb.cz/it4i/</url>
+        </repository>
+        <repository>
+            <id>scijava.public</id>
+            <url>https://maven.scijava.org/content/groups/public</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>it4i</id>
+            <url>https://artifactory.cs.vsb.cz/it4i/</url>
+        </repository>
+    </distributionManagement>
+    <profiles>
+
+        <profile>
+            <id>develop</id>
+            <properties>
+                <stage>development</stage>
+            </properties>
+            <activation>
+		      <activeByDefault>true</activeByDefault>
+		    </activation>
+        </profile>
+    </profiles>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.scijava</groupId>
+		       <artifactId>pom-scijava</artifactId>
+		       <version>30.0.0</version>
+		       <type>pom</type>
+               <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+		
+		<dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>bigdataviewer-core</artifactId>
+        </dependency>
+
+		<dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-iostreams -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-iostreams</artifactId>
+		    <version>2.17.1</version>
+		</dependency>
+        
+        
+		
+		        
+    </dependencies>
+    <build>
+        <plugins>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources-${stage}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

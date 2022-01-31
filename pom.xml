@@ -5,7 +5,7 @@
     <groupId>cz.it4i.fiji</groupId>
     <artifactId>hpc-datastore-core</artifactId>
 
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>HPCDataStore Core</name>
     <description>Core datastructures for HPCDataStore</description>
     <url>ToDO</url>
@@ -195,4 +195,5 @@
             </resource>
         </resources>
     </build>
+	
 </project>

@@ -9,7 +9,6 @@ package cz.it4i.fiji.datastore.core;
 
 import org.jdom2.Element;
 import org.scijava.Context;
-import org.scijava.display.Display;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.PluginService;
 
@@ -23,9 +22,6 @@ import mpicbg.spim.data.generic.sequence.AbstractSequenceDescription;
 public class HPCDatastoreImageLoader implements ViewerImgLoader {
 
 	final protected String baseUrl;
-
-	@Parameter
-	private Display<?> display;
 
 	@Parameter
 	private PluginService pluginService;

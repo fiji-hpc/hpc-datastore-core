@@ -54,8 +54,6 @@ import bdv.img.hdf5.ViewLevelId;
 import lombok.Getter;
 import mpicbg.spim.data.generic.sequence.AbstractSequenceDescription;
 import mpicbg.spim.data.generic.sequence.BasicViewSetup;
-import mpicbg.spim.data.registration.ViewRegistration;
-import mpicbg.spim.data.registration.ViewRegistrations;
 import mpicbg.spim.data.sequence.TimePoint;
 
 @Getter
@@ -137,10 +135,12 @@ public class HPCDatastoreImageLoaderMetaData
 
 	public HPCDatastoreImageLoaderMetaData(DatasetDTO datasetDTO,
 		AbstractSequenceDescription<?, ?, ?> sequenceDescription,
-		ViewRegistrations viewRegistrations, DataType aDataType)
+		DataType aDataType)
 	{
 		uuid = datasetDTO.getUuid();
-		perSetupMipmapInfo = createPerSetupMipmapInfo(viewRegistrations, datasetDTO);
+
+		perSetupMipmapInfo = createPerSetupMipmapInfo(sequenceDescription
+			.getViewSetupsOrdered(), datasetDTO);
 		dimsAndExistence = new HashMap<>();
 		dataType = aDataType;
 
@@ -196,32 +196,30 @@ public class HPCDatastoreImageLoaderMetaData
 		return cellsDimensions;
 	}
 
-	private static Map<Integer, MipmapInfo> createPerSetupMipmapInfo(
-		ViewRegistrations viewRegistrations, DatasetDTO dataset)
+	public static Map<Integer, MipmapInfo> createPerSetupMipmapInfo(
+		List<? extends BasicViewSetup> viewSetups, DatasetDTO dataset)
 	{
 
 		Map<Integer, MipmapInfo> result = new HashMap<>();
 		MipmapInfo exportInfo = MipmapInfoAssembler.createExportMipmapInfo(dataset);
-		for (ViewRegistration registration : viewRegistrations
-			.getViewRegistrationsOrdered())
+		for (BasicViewSetup viewSetup : viewSetups)
 		{
-			if (!result.containsKey(registration.getViewSetupId())) {
-				AffineTransform3D[] transforms = new AffineTransform3D[dataset
-					.getResolutionLevels().length];
-				AffineTransform3D affine = new AffineTransform3D();
+			AffineTransform3D[] transforms = new AffineTransform3D[dataset
+				.getResolutionLevels().length];
+			AffineTransform3D affine = new AffineTransform3D();
 
-				for (int i = 0; i < transforms.length; i++) {
-					transforms[i] = affine.copy();
-					double[] level = exportInfo.getResolutions()[i];
-					transforms[i].scale(level[0], level[1], level[2]);
-					// translate for center upper level
-					transforms[i].translate(level[0] / 2 - 0.5, level[1] / 2 - 0.5,
-						level[2] / 2 - 0.5);
-				}
-				MipmapInfo info = new MipmapInfo(exportInfo.getResolutions(),
-					transforms, exportInfo.getSubdivisions());
-				result.put(registration.getViewSetupId(), info);
+			for (int i = 0; i < transforms.length; i++) {
+				transforms[i] = affine.copy();
+				double[] level = exportInfo.getResolutions()[i];
+				transforms[i].scale(level[0], level[1], level[2]);
+				// translate for center upper level
+				transforms[i].translate(level[0] / 2 - 0.5, level[1] / 2 - 0.5,
+					level[2] / 2 - 0.5);
 			}
+			MipmapInfo info = new MipmapInfo(exportInfo.getResolutions(), transforms,
+				exportInfo.getSubdivisions());
+			result.put(viewSetup.getId(), info);
+
 		}
 		return result;
 	}

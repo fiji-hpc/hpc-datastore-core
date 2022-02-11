@@ -47,6 +47,18 @@ public class DatasetDTO {
 	@ToString
 	public static class ResolutionLevel {
 
+		public static ResolutionLevel[] constructLevels(int[][] resolutions,
+			int[][] subdivisions)
+		{
+
+			ResolutionLevel[] result = new ResolutionLevel[resolutions.length];
+			for (int i = 0; i < result.length; i++) {
+				result[i] = ResolutionLevel.builder().resolutions(resolutions[i])
+					.blockDimensions(subdivisions[i]).build();
+			}
+			return result;
+		}
+
 		@Getter
 		@Setter
 		int[] resolutions;
@@ -124,7 +136,7 @@ public class DatasetDTO {
 	private String label;
 	
 	@Getter
-	private List<ViewRegistration> viewRegistrations;
+	private List<ViewRegistrationDTO> viewRegistrations;
 
 	public void setLabel(String label) {
 		this.label = label.replaceAll("[:\\\\/*\"?|<>']", " ");

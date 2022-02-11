@@ -20,7 +20,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @Data
-public class ViewRegistration {
+public class ViewRegistrationDTO {
 
 	private int angle;
 
@@ -28,5 +28,5 @@ public class ViewRegistration {
 
 	private int time;
 
-	private List<double[]> transformations;
+	private List<ViewTransformDTO> transformations;
 }

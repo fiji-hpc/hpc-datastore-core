@@ -123,6 +123,9 @@ public class DatasetDTO {
 	@Getter
 	private String label;
 	
+	@Getter
+	private List<ViewRegistration> viewRegistrations;
+
 	public void setLabel(String label) {
 		this.label = label.replaceAll("[:\\\\/*\"?|<>']", " ");
 	}

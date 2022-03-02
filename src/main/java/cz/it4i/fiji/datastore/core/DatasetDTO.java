@@ -8,7 +8,6 @@
 package cz.it4i.fiji.datastore.core;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -71,7 +70,7 @@ public class DatasetDTO {
 
 	@Setter
 	@Getter
-	private UUID uuid;
+	private String uuid;
 
 	@Setter
 	@Getter

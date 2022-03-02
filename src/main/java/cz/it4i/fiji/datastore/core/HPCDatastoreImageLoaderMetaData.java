@@ -41,7 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 import java.util.function.Function;
 
 import net.imglib2.realtransform.AffineTransform3D;
@@ -60,7 +59,7 @@ import mpicbg.spim.data.sequence.TimePoint;
 public class HPCDatastoreImageLoaderMetaData
 {
 
-	UUID uuid;
+	String uuid;
 
 	/**
 	 * The highest occurring timepoint id + 1. This is the maximum number of

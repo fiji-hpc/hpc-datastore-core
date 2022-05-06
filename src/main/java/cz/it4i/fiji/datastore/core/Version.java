@@ -12,8 +12,10 @@ import mpicbg.spim.data.generic.base.NamedEntity;
 
 public class Version extends NamedEntity implements Comparable<Version> {
 
+	public static String MIXED_LATEST_VERSION_NAME = "mixedLatest";
+
 	public static int stringToIntVersion(final String versionStr) {
-		if (versionStr.equals("mixedLatest")) {
+		if (versionStr.equals(MIXED_LATEST_VERSION_NAME)) {
 			return -1;
 		}
 		return Integer.parseInt(versionStr);

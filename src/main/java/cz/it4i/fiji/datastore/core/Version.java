@@ -25,6 +25,10 @@ public class Version extends NamedEntity implements Comparable<Version> {
 		super(value, "" + value);
 	}
 
+	public Version(String name) {
+		super(stringToIntVersion(name), name);
+	}
+
 	@Override
 	public int compareTo(Version o) {
 		return Integer.compare(this.getId(), o.getId());

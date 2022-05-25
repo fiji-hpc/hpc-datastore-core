@@ -137,6 +137,9 @@ public class DatasetDTO {
 	@Getter
 	private List<ViewRegistrationDTO> viewRegistrations;
 
+	@Getter
+	private List<Integer> timepointIds;
+
 	public void setLabel(String label) {
 		this.label = label.replaceAll("[:\\\\/*\"?|<>']", " ");
 	}

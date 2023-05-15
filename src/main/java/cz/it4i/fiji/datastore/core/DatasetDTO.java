@@ -140,6 +140,10 @@ public class DatasetDTO {
 	@Getter
 	private List<Integer> timepointIds;
 
+	@Getter
+	@Setter
+	private String datasetType;
+
 	public void setLabel(String label) {
 		this.label = label.replaceAll("[:\\\\/*\"?|<>']", " ");
 	}

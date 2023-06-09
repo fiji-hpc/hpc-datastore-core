@@ -227,6 +227,7 @@ public class HPCDatastoreImageLoaderMetaData
 		long[] result = new long[dimensions.length];
 		for (int i = 0; i < result.length; i++) {
 			result[i] = dimensions[i] / resolution[i];
+			if (result[i] == 0) result[i] = 1; //make sure no dimension is lost (by making it 0 pixels wide)
 		}
 		return result;
 	}
